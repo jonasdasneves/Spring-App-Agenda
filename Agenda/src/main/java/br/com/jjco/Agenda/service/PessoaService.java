@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service //Define a classe como Service
 public class PessoaService {
@@ -33,9 +34,50 @@ public class PessoaService {
         }
     }
 
+    //CRUD - Read - Retorna pessoa pelo ID
+    //Utiliza o Optional para evitar erros
+    public Optional<Pessoa> findById(Long id){
+        return pessoaRepository.findById(id);
+    }
+
     //CRUD - Read - Retorna todos os registros de pessoa
     public List<Pessoa> findAll(){
         return pessoaRepository.findAll();
+    }
+
+    //CRUD - Update - Verifica se registro existe pelo id e atualiza ou cria novo
+    public Pessoa update(Pessoa pessoa){
+
+        //procura um registro com mesmo ID do passado por requisição
+        Optional<Pessoa> findPessoa = pessoaRepository.findById(pessoa.getId());
+
+        //Se o registro já existe
+        if (findPessoa.isPresent()){
+
+            //Cria novo objeto com os dados da requisição
+            Pessoa updPessoa = findPessoa.get();
+
+            //Atualiza o registro existente com os dados novos
+            updPessoa.setNome(pessoa.getNome());
+            updPessoa.setCep(pessoa.getCep());
+            updPessoa.setEndereco(pessoa.getEndereco());
+            updPessoa.setCidade(pessoa.getCidade());
+            updPessoa.setUf(pessoa.getUf());
+
+            //Registra atualização no banco
+            return pessoaRepository.save(updPessoa);
+        }
+
+        //Se não existe o registro, um registro novo é criado
+        else {
+            return pessoaRepository.save(pessoa);
+        }
+    }
+
+    //CRUD - Delete
+    public void delete(Long id) {
+        //deleta registro pelo ID
+        pessoaRepository.deleteById(id);
     }
 
 }
