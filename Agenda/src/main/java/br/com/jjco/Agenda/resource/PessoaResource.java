@@ -1,6 +1,7 @@
 package br.com.jjco.Agenda.resource;
 
 import br.com.jjco.Agenda.model.Pessoa;
+import br.com.jjco.Agenda.model.PessoaMalaDireta;
 import br.com.jjco.Agenda.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -77,6 +78,18 @@ public class PessoaResource {
             return ResponseEntity.ok(listaPessoas);
         }
 
+    }
+    @GetMapping("/maladireta/{id}")//GET http://localhost:8080/api/pessoas/maladireta/{id}
+    public ResponseEntity<PessoaMalaDireta> findMalaDiretaById(@PathVariable Long id){
+
+        PessoaMalaDireta pessoaMalaDireta = pessoaService.findMalaDiretaById(id);
+
+        if (pessoaMalaDireta == null){
+            return ResponseEntity.badRequest().build();
+        }
+        else{
+            return ResponseEntity.ok(pessoaMalaDireta);
+        }
     }
 
     @PutMapping //UPDATE http://localhost:8080/api/pessoas

@@ -1,6 +1,7 @@
 package br.com.jjco.Agenda.service;
 
 import br.com.jjco.Agenda.model.Pessoa;
+import br.com.jjco.Agenda.model.PessoaMalaDireta;
 import br.com.jjco.Agenda.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,26 @@ public class PessoaService {
     //CRUD - Read - Retorna todos os registros de pessoa
     public List<Pessoa> findAll(){
         return pessoaRepository.findAll();
+    }
+
+    //CRUD - Read - Retorna pessoa com endereço no formato mala direta
+    public PessoaMalaDireta findMalaDiretaById(Long id){
+
+        //procura pessoa por ID
+        Optional<Pessoa> pessoaEncontrada = pessoaRepository.findById(id);
+
+        //Se o registro existe
+        if (pessoaEncontrada.isPresent()){
+
+            //Retorna um Record com o padraão de mala direta
+            return new PessoaMalaDireta(pessoaEncontrada.get());
+        }
+
+        //Caso não exista, retorna null
+        else{
+            return null;
+        }
+
     }
 
     //CRUD - Update - Verifica se registro existe pelo id e atualiza ou cria novo
