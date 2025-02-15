@@ -64,12 +64,7 @@ public class PessoaResource {
         //Cria uma lista das pessoas encontradas
         List<Pessoa> listaPessoas = pessoaService.findAll();
 
-        if(listaPessoas == null){
-            //Se a lista for nula, houve problema na requisição, retornando 400
-            return ResponseEntity.badRequest().build();
-        }
-
-        else if(listaPessoas.size() == 0) {
+        if(listaPessoas.isEmpty()) {
             //Se a lista não tiver registros. retorna 404
             return ResponseEntity.notFound().build();
         }
@@ -98,17 +93,13 @@ public class PessoaResource {
         Pessoa newPessoa = pessoaService.update(pessoa);
 
         if (newPessoa == null) {
-
             //Se o objeto for nulo, houve problema na requisição, retornando 400,
             // pois se o objeto apenas não existisse, um novo seria criado
             return ResponseEntity.badRequest().build();
-
         }
         else {
-
             //Retorna 200, indicando que a requisição foi um sucesso
             return ResponseEntity.ok(pessoa);
-
         }
     }
 

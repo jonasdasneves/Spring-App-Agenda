@@ -19,6 +19,10 @@ public class PessoaService {
     //CRUD - create
     public Pessoa save(Pessoa pessoa){
 
+        if (pessoa.getId() != null){
+            System.out.println("O ID não deve ser enviado para salvar um registro.");
+            return null;
+        }
         //Apenas o nome é obrigatório, caso esteja vazio, deve ser apontado erro
         if (pessoa.getNome() == null){
             System.out.println("Insira o nome da pessoa a ser registrada.");
