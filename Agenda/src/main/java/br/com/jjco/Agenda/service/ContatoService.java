@@ -2,12 +2,12 @@ package br.com.jjco.Agenda.service;
 
 import br.com.jjco.Agenda.model.Contato;
 import br.com.jjco.Agenda.model.Pessoa;
-import br.com.jjco.Agenda.model.PessoaMalaDireta;
 import br.com.jjco.Agenda.repository.ContatoRepository;
 import br.com.jjco.Agenda.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,6 +66,13 @@ public class ContatoService {
     //Utiliza o Optional para evitar erros
     public Optional<Contato> findById(Long id){
         return contatoRepository.findById(id);
+    }
+
+    //CRUD - Read - Retorna todos os contatos de uma pessoa
+    public List<Contato> findByIdPessoa(Long id){
+
+        //Cria uma lista para ser retornada com os contatos da pessoa
+        return contatoRepository.findByPessoa(id);
     }
 
     public Contato update(Contato contato){

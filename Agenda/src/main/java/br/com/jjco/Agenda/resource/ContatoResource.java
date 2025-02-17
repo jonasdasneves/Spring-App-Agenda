@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +27,7 @@ public class ContatoResource {
         return ResponseEntity.ok(newContato);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}")//GET http://localhost:8080/api/contatos/id
     public ResponseEntity<Optional<Contato>> findById(@PathVariable Long id){
 
         Optional<Contato> contato = contatoService.findById(id);
@@ -42,6 +43,25 @@ public class ContatoResource {
         else{
             //Retorna 200, indicando que a requisição foi um sucesso
             return ResponseEntity.ok(contato);
+        }
+    }
+
+    @GetMapping("/pessoas/{id}")//GET http://localhost:8080/api/contatos/pessoas/id
+    public ResponseEntity<List<Contato>> findByIdPessoa(@PathVariable Long id){
+        
+        List<Contato> listaContatosPessoa = contatoService.findByIdPessoa(id);
+        
+        if(listaContatosPessoa.isEmpty()) {
+            //Se a lista não tiver registros. retorna 404
+            return ResponseEntity.noContent().build();
+        }
+        else if(listaContatosPessoa == null) {
+            //Se a lista não tiver registros. retorna 404
+            return ResponseEntity.notFound().build();
+        }
+        else {
+            //Retorna 200, indicando que a requisição foi um sucesso
+            return ResponseEntity.ok(listaContatosPessoa);
         }
     }
 
