@@ -2,6 +2,10 @@ package br.com.jjco.Agenda.model;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Entity //Entidade do banco de dados
 @Table(name = "tb_pessoas") //Nome da tabela no banco
 public class Pessoa {
@@ -24,6 +28,9 @@ public class Pessoa {
 
     @Column
     private String uf;
+
+    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Contato> contatos = new HashSet<>();
 
     //Construtor vazio
     public Pessoa(){}

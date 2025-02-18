@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Agenda.iml" filepath="$PROJECT_DIR$/.idea/Agenda.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Agenda/Agenda.iml" filepath="$PROJECT_DIR$/Agenda/Agenda.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Spring-App-Agenda.iml" filepath="$PROJECT_DIR$/.idea/Spring-App-Agenda.iml" />
     </modules>
   </component>
 </project>
