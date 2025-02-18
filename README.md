@@ -22,6 +22,7 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
 - Todas as versões do Java e das dependencias são definidas no arquivo pom.xml
+- A API está documentada e pode ser testada no OpenAPI (swagger), para utilizá-la localmente acesse: http://localhost:8080/swagger-ui
 - O banco de dados utilizado é o H2! Para acessá-lo localmente utilize o endereço: http://localhost:8080/h2-console
   
 Dados de login do H2:
@@ -29,9 +30,7 @@ Dados de login do H2:
 - Driver class: org.h2.Driver
 - JDBC URL: jdbc:h2:mem:agenda
 - User Name: sa
-- A API está documentada e pode ser testada no swagger: http://localhost:8080/swagger-ui
   
-
 ## 🤝 Apoio
 
 Agradeço à MinSait pelo curso de capacitação que me permitiu criar esse projeto, o qual é em si uma exame para o mesmo:
