@@ -3,6 +3,7 @@ package br.com.jjco.Agenda.resource;
 import br.com.jjco.Agenda.model.Pessoa;
 import br.com.jjco.Agenda.model.PessoaMalaDireta;
 import br.com.jjco.Agenda.service.PessoaService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class PessoaResource {
     @Autowired //Injeção de dependência do Service para chamar os métodos
     private PessoaService pessoaService;
 
-    //Cria novo registro de pessoa
+    @Operation(summary = "Cria novo registro de pessoa, não enviar ID, o mesmo é adicionado automaticamente" )
     @PostMapping//POST http://localhost:8080/api/pessoas
     public ResponseEntity<Pessoa> save(@RequestBody Pessoa pessoa){
 
@@ -38,8 +39,7 @@ public class PessoaResource {
 
     }
 
-
-    //Retorna pessoa pelo ID
+    @Operation(summary = "Retorna pessoa pelo ID")
     @GetMapping("/{id}")//GET http://localhost:8080/api/pessoas/{id}
     public ResponseEntity<Optional<Pessoa>> findById(@PathVariable Long id){
 
@@ -57,7 +57,7 @@ public class PessoaResource {
 
     }
 
-    //Retorna todas as pessoas
+    @Operation(summary = "Retorna todas as pessoas")
     @GetMapping//GET http://localhost:8080/api/pessoas
     public ResponseEntity<List<Pessoa>> findAll(){
 
@@ -74,7 +74,7 @@ public class PessoaResource {
         }
 
     }
-    //Retorna pessoa pelo ID no formato mala direta
+    @Operation(summary = "Retorna pessoa pelo ID no formato mala direta")
     @GetMapping("/maladireta/{id}")//GET http://localhost:8080/api/pessoas/maladireta/{id}
     public ResponseEntity<PessoaMalaDireta> findMalaDiretaById(@PathVariable Long id){
 
@@ -88,7 +88,7 @@ public class PessoaResource {
         }
     }
 
-    //Atualiza o registro da pessoa com objeto pessoa
+    @Operation(summary = "Atualiza o registro da pessoa com objeto pessoa, enviar apenas ID existente")
     @PutMapping //UPDATE http://localhost:8080/api/pessoas
     public ResponseEntity<Pessoa> update(@RequestBody Pessoa pessoa){
 
@@ -105,7 +105,7 @@ public class PessoaResource {
         }
     }
 
-    //Deleta o registro por ID
+    @Operation(summary = "Deleta o registro por ID")
     @DeleteMapping("/{id}") //DELETE http://localhost:8080/api/pessoas/{id}
     public ResponseEntity<?> delete(@PathVariable Long id){
         pessoaService.delete(id);

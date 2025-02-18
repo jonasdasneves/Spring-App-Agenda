@@ -3,6 +3,7 @@ package br.com.jjco.Agenda.resource;
 import br.com.jjco.Agenda.model.Contato;
 import br.com.jjco.Agenda.model.Pessoa;
 import br.com.jjco.Agenda.service.ContatoService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class ContatoResource {
     @Autowired //Injeção de dependência do Service para chamar os métodos
     private ContatoService contatoService;
 
-    //Registra um novo contato
+    @Operation(summary = "Registra um novo contato, não enviar ID, o mesmo é adicionado automaticamente")
     @PostMapping//POST http://localhost:8080/api/contatos
     public ResponseEntity<Contato> save(@RequestBody Contato contato){
 
@@ -35,7 +36,7 @@ public class ContatoResource {
         }
     }
 
-    //Retorna contato por ID
+    @Operation(summary = "Retorna contato por ID")
     @GetMapping("/{id}")//GET http://localhost:8080/api/contatos/id
     public ResponseEntity<Optional<Contato>> findById(@PathVariable Long id){
 
@@ -51,7 +52,7 @@ public class ContatoResource {
         }
     }
 
-    //Retorna todos os contatos de uma pessoa pelo ID dessa pessoa
+    @Operation(summary = "Retorna todos os contatos de uma pessoa pelo ID dessa pessoa")
     @GetMapping("/pessoas/{id}")//GET http://localhost:8080/api/contatos/pessoas/id
     public ResponseEntity<List<Contato>> findByIdPessoa(@PathVariable Long id){
 
@@ -69,7 +70,7 @@ public class ContatoResource {
     }
 
 
-    //Retorna todos os registros de contatos
+    @Operation(summary = "Retorna todos os registros de contatos")
     @GetMapping//GET http://localhost:8080/api/contatos
     public ResponseEntity<List<Contato>> findAll(){
 
@@ -86,7 +87,7 @@ public class ContatoResource {
         }
     }
 
-    //Atualiza o registro de um contato e seu respectivo dono
+    @Operation(summary = "Atualiza o registro de um contato e seu respectivo dono, enviar apenas IDs existentes.")
     @PutMapping //UPDATE http://localhost:8080/api/pessoas
     public ResponseEntity<Contato> update(@RequestBody Contato contato){
 
@@ -103,7 +104,7 @@ public class ContatoResource {
         }
     }
 
-    //Apaga um contato por seu ID
+    @Operation(summary = "Apaga um contato por seu ID")
     @DeleteMapping("/{id}") //DELETE http://localhost:8080/api/contatos/{id}
     public ResponseEntity<?> delete(@PathVariable Long id){
         contatoService.delete(id);

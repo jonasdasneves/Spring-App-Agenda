@@ -17,9 +17,9 @@ public class OpenApiConfig {
                 .components(new Components().addSecuritySchemes("basicScheme",
                         new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("basic")))
                 .info(new Info()
-                        .title("Título API")
-                        .description("Descrição API")
-                        .contact(new Contact().name("Nome").email("Email").url("URL"))
-                        .version("Versão API"));
+                        .title("Spring App Agenda")
+                        .description("API de CRUD desenvolvida em Java e Spring para registro e manipulação de pessoas e seus respectivos contatos")
+                        .contact(new Contact().name("Jonas").email("jonascamp2004@gmail.com").url("https://github.com/jonasdasneves"))
+                        .version("Versão 1.0"));
     }
 }
