@@ -1,19 +1,17 @@
 package br.com.jjco.Agenda.model;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.Cascade;
-
-import java.util.EnumSet;
 
 
-@Entity
-@Table(name = "tb_contatos")
+@Entity //Entidade do banco de dados
+@Table(name = "tb_contatos") //Nome da tabela no banco
 public class Contato {
 
-    private enum TipoContato { telefone, celular };
+    //Cria um enum com possiveis tipos de contato
+    private enum TipoContato { telefone, celular, email, redeSocial };
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id //Define como ID/ Chave primária no banco
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //Define autoincremento
     private Long id;
 
     @Enumerated(EnumType.STRING)
@@ -23,12 +21,15 @@ public class Contato {
     @Column(nullable = false)
     private String contato;
 
+    //Relação manyToOne cria uma coluna de pessoa_id como chave estrangeira de id
     @ManyToOne
     @JoinColumn(name = "pessoa_id", referencedColumnName = "id")
     private Pessoa pessoa;
 
+    //Construtor vazio
     public Contato(){}
 
+    //Construtor não define o id
     public Contato(TipoContato tipoContato, String contato, Pessoa pessoa) {
         this.tipoContato = tipoContato;
         this.contato = contato;

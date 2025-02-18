@@ -51,9 +51,16 @@ public class ContatoService {
                 System.out.println("Pessoa não encontrada");
                 return null;
             }else {
-                contato.setPessoa(findPessoa.get());
-                return contatoRepository.save(contato);
+                //Tenta salvar pessoa no banco e aponta erros se houver
+                try {
+                    contato.setPessoa(findPessoa.get());
+                    return contatoRepository.save(contato);
+                } catch (Exception e) {
+                    System.out.println("Erro ao inserir contato " +
+                            contato + ": " + e.getMessage());
+                    return null;
                 }
+            }
 
         }else {
             //Caso a pessoa não exista, não é possivel criar o contato
@@ -68,6 +75,11 @@ public class ContatoService {
         return contatoRepository.findById(id);
     }
 
+    //CRUD - Read - Retorna todos os registros de contatos
+    public List<Contato> findAll(){
+        return contatoRepository.findAll();
+    }
+
     //CRUD - Read - Retorna todos os contatos de uma pessoa
     public List<Contato> findByIdPessoa(Long id){
 
@@ -75,6 +87,7 @@ public class ContatoService {
         return contatoRepository.findByPessoa(id);
     }
 
+    //CRUD - Update - Atualiza um registro
     public Contato update(Contato contato){
 
         //procura um registro com mesmo ID do passado por requisição
@@ -91,7 +104,10 @@ public class ContatoService {
             updContato.setContato(contato.getContato());
             updContato.setPessoa(contato.getPessoa());
 
-            //Registra atualização no banco
+            //Registra atualização de pessoa no banco
+            pessoaRepository.save(contato.getPessoa());
+
+            //Registra atualização de contato no banco
             return contatoRepository.save(updContato);
         }
 
@@ -99,11 +115,6 @@ public class ContatoService {
         else {
             return contatoRepository.save(contato);
         }
-    }
-
-    //CRUD - Read - Retorna todos os registros de contatos
-    public List<Contato> findAll(){
-        return contatoRepository.findAll();
     }
 
     //CRUD - Delete

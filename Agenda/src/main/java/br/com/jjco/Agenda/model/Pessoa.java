@@ -3,11 +3,11 @@ package br.com.jjco.Agenda.model;
 import jakarta.persistence.*;
 
 @Entity //Entidade do banco de dados
-@Table(name = "tb_pessoas")
+@Table(name = "tb_pessoas") //Nome da tabela no banco
 public class Pessoa {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id //Define como ID/ Chave primária no banco
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //Define autoincremento
     private Long id;
 
     @Column(nullable = false)

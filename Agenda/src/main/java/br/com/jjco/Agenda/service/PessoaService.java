@@ -33,7 +33,7 @@ public class PessoaService {
             return pessoaRepository.save(pessoa);
         }
         catch (Exception e){
-            System.out.println("Erro ao inserir produto " +
+            System.out.println("Erro ao inserir pessoa " +
                     pessoa + ": " + e.getMessage());
             return null;
         }

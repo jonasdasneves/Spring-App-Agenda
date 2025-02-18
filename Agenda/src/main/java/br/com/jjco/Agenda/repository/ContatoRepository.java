@@ -11,6 +11,7 @@ import java.util.Optional;
 //Criação de repositório da classe contato, herdando o JPA
 public interface ContatoRepository extends JpaRepository<Contato, Long> {
 
+    //Criação de query para novo método.
     @Query(value = "SELECT * FROM TB_CONTATOS WHERE PESSOA_ID = :id", nativeQuery = true)
     List<Contato> findByPessoa(@Param("id") Long id);
 }
