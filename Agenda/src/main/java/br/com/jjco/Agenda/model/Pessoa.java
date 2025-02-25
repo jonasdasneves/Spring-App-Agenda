@@ -1,5 +1,7 @@
 package br.com.jjco.Agenda.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -30,18 +32,24 @@ public class Pessoa {
     private String uf;
 
     @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private Set<Contato> contatos = new HashSet<>();
 
     //Construtor vazio
     public Pessoa(){}
 
     //Construtor não define o id
-    public Pessoa(String nome, String endereco, String cep, String cidade, String uf) {
+    public Pessoa(String nome, String endereco, String cep, String cidade, String uf, Set<Contato> contatos) {
         this.nome = nome;
         this.endereco = endereco;
         this.cep = cep;
         this.cidade = cidade;
         this.uf = uf;
+        this.contatos = contatos;
+    }
+
+    public Set<Contato> getContatos() {
+        return contatos;
     }
 
     public Long getId() {

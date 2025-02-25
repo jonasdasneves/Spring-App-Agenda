@@ -1,5 +1,6 @@
 package br.com.jjco.Agenda.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 
@@ -24,6 +25,7 @@ public class Contato {
     //Relação manyToOne cria uma coluna de pessoa_id como chave estrangeira de id
     @ManyToOne
     @JoinColumn(name = "pessoa_id", referencedColumnName = "id")
+    @JsonBackReference // Impede que a pessoa seja serializada no JSON do endereço
     private Pessoa pessoa;
 
     //Construtor vazio

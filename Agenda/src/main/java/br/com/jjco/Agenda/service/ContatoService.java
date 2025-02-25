@@ -54,6 +54,7 @@ public class ContatoService {
                 //Tenta salvar pessoa no banco e aponta erros se houver
                 try {
                     contato.setPessoa(findPessoa.get());
+
                     return contatoRepository.save(contato);
                 } catch (Exception e) {
                     System.out.println("Erro ao inserir contato " +

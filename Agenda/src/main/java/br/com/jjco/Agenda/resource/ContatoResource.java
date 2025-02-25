@@ -3,6 +3,7 @@ package br.com.jjco.Agenda.resource;
 import br.com.jjco.Agenda.model.Contato;
 import br.com.jjco.Agenda.model.Pessoa;
 import br.com.jjco.Agenda.service.ContatoService;
+import br.com.jjco.Agenda.service.PessoaService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,9 @@ public class ContatoResource {
 
     @Autowired //Injeção de dependência do Service para chamar os métodos
     private ContatoService contatoService;
+
+    @Autowired
+    private PessoaService pessoaService;
 
     @Operation(summary = "Registra um novo contato, não enviar ID, o mesmo é adicionado automaticamente")
     @PostMapping//POST http://localhost:8080/api/contatos
