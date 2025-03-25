@@ -1,5 +1,8 @@
 package br.com.jjco.Agenda.service;
 
+import br.com.jjco.Agenda.exception.BadRequestException;
+import br.com.jjco.Agenda.exception.InternalServerException;
+import br.com.jjco.Agenda.exception.NotFoundException;
 import br.com.jjco.Agenda.model.Pessoa;
 import br.com.jjco.Agenda.model.PessoaMalaDireta;
 import br.com.jjco.Agenda.repository.PessoaRepository;
@@ -20,54 +23,57 @@ public class PessoaService {
     public Pessoa save(Pessoa pessoa){
 
         if (pessoa.getId() != null){
-            System.out.println("O ID não deve ser enviado para salvar um registro.");
-            return null;
+            throw new BadRequestException("O ID não deve ser passado ao salvar pessoa");
         }
         //Apenas o nome é obrigatório, caso esteja vazio, deve ser apontado erro
         if (pessoa.getNome() == null){
-            System.out.println("Insira o nome da pessoa a ser registrada.");
-            return null;
+            throw new BadRequestException("O Nome da pessoa não deve estar vazio");
         }
         //Tenta salvar pessoa no banco e aponta erros se houver
         try {
             return pessoaRepository.save(pessoa);
         }
         catch (Exception e){
-            System.out.println("Erro ao inserir pessoa " +
-                    pessoa + ": " + e.getMessage());
-            return null;
+            throw new InternalServerException("Erro interno de servidor!");
         }
     }
 
     //CRUD - Read - Retorna pessoa pelo ID
     //Utiliza o Optional para evitar erros
-    public Optional<Pessoa> findById(Long id){
-        return pessoaRepository.findById(id);
+    public Pessoa findById(Long id){
+        try {
+            return pessoaRepository.findById(id)
+                    .orElseThrow(() -> new NotFoundException("Usuário com ID " + id + " não encontrado"));
+        } catch (NotFoundException e) {
+            throw e;
+        }
+        catch (Exception e) {
+            throw new InternalServerException("Erro interno ao buscar usuário: " + e.getMessage());
+        }
     }
 
     //CRUD - Read - Retorna todos os registros de pessoa
     public List<Pessoa> findAll(){
+
         return pessoaRepository.findAll();
     }
 
     //CRUD - Read - Retorna pessoa com endereço no formato mala direta
     public PessoaMalaDireta findMalaDiretaById(Long id){
 
-        //procura pessoa por ID
-        Optional<Pessoa> pessoaEncontrada = pessoaRepository.findById(id);
-
-        //Se o registro existe
-        if (pessoaEncontrada.isPresent()){
+        try {
+            Pessoa pessoaEncontrada = pessoaRepository.findById(id)
+                    .orElseThrow(() -> new NotFoundException("Usuário com ID " + id + " não encontrado"));
 
             //Retorna um Record com o padraão de mala direta
-            return new PessoaMalaDireta(pessoaEncontrada.get());
-        }
+            return new PessoaMalaDireta(pessoaEncontrada);
 
-        //Caso não exista, retorna null
-        else{
-            return null;
+        } catch (NotFoundException e) {
+            throw e;
         }
-
+        catch (Exception e) {
+            throw new InternalServerException("Erro interno ao buscar usuário: " + e.getMessage());
+        }
     }
 
     //CRUD - Update - Verifica se registro existe pelo id e atualiza ou cria novo

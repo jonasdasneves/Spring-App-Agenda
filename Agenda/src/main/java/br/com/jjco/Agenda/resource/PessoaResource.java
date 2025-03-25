@@ -41,20 +41,11 @@ public class PessoaResource {
 
     @Operation(summary = "Retorna pessoa pelo ID")
     @GetMapping("/{id}")//GET http://localhost:8080/api/pessoas/{id}
-    public ResponseEntity<Optional<Pessoa>> findById(@PathVariable Long id){
+    public ResponseEntity<Pessoa> findById(@PathVariable Long id){
 
-        Optional<Pessoa> newPessoa = pessoaService.findById(id);
+        Pessoa newPessoa = pessoaService.findById(id);
 
-        if(newPessoa.isEmpty()){
-            //Se a o objeto estiver vazio, aquele id não existe, retornando 404
-            return ResponseEntity.notFound().build(); //404
-        }
-
-        else{
-            //Retorna 200, indicando que a requisição foi um sucesso
-            return ResponseEntity.ok(newPessoa); //200
-        }
-
+        return ResponseEntity.ok(newPessoa); //200
     }
 
     @Operation(summary = "Retorna todas as pessoas")
@@ -80,12 +71,8 @@ public class PessoaResource {
 
         PessoaMalaDireta pessoaMalaDireta = pessoaService.findMalaDiretaById(id);
 
-        if (pessoaMalaDireta == null){
-            return ResponseEntity.badRequest().build(); //400
-        }
-        else{
-            return ResponseEntity.ok(pessoaMalaDireta); //200
-        }
+        return ResponseEntity.ok(pessoaMalaDireta); //200
+
     }
 
     @Operation(summary = "Atualiza o registro da pessoa com objeto pessoa, enviar apenas ID existente")
