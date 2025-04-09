@@ -13,9 +13,9 @@
 O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas para as seguintes tarefas:
 
 - [x] Tarefa 1 - Sistema funcionando conforme solicitado em prova
-- [ ] Tarefa 2 - Integração com sistema Front-End criado no angular
-- [ ] Tarefa 3 - Criação de classe responsável por tratamento de erros nas requisições HTTP
-- [ ] Tarefa 4 - Integração com banco de dados externo (Oracle ou MySQL)
+- [x] Tarefa 2 - Integração com sistema Front-End criado no angular
+- [x] Tarefa 3 - Criação de classe responsável por tratamento de erros nas requisições HTTP
+- [x] Tarefa 4 - Integração com banco de dados externo (Oracle ou MySQL)
 
 ## 💻 Pré-requisitos
 
